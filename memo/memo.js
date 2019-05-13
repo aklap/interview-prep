@@ -46,29 +46,32 @@
 // console.log(adder(2))
 
 // Example II.
-function memo(callback) {
-  let cache = {}; // object to store values
-  console.log('Starting cache: ', cache)
-  // anonymous closure -- why? expl.
-  return function() {
-    let key = JSON.stringify(arguments[0])
-    // check for key in cache
-    if(cache[key]) {
-      console.log(`Cached value found for ${key}th fibonacci number:`, cache[key])
-      return cache[key] // if arg seen before, return its value
-    } else {
-      // why did he leave out let?
-      // NOTE: '.apply returns the value of the function it calls'--huh? that's not what .apply does.
-      let val = callback.apply(this, arguments) // get result of that func and arg
-      cache[key] = val; // store the result in cache as key-value pair
-      console.log(`A new number! Value added for ${key}th number: ${cache[key]}`)
-      return val; // return the value
-    }
-  }
-}
+// function memo(callback) {
+//   let cache = {}; // object to store values
+//   console.log('Starting cache: ', cache)
+//   // anonymous closure -- why? expl.
+//   return function() {
+//     let key = JSON.stringify(arguments[0])
+//     // check for key in cache
+//     if(cache[key]) {
+//       console.log(`Cached value found for ${key}th fibonacci number:`, cache[key])
+//       return cache[key] // if arg seen before, return its value
+//     } else {
+//       // why did he leave out let?
+//       // NOTE: '.apply returns the value of the function it calls'--huh? that's not what .apply does.
+//       let val = callback.apply(this, arguments) // get result of that func and arg
+//       cache[key] = val; // store the result in cache as key-value pair
+//       console.log(`A new number! Value added for ${key}th number: ${cache[key]}`)
+//       return val; // return the value
+//     }
+//   }
+// }
+
+// Bonus
+import Memoizer from './bonus.js';
 
 // Recursive example
-  var fib = memo(function(n) {
+  var fib = Memoizer.memo(function(n) {
     if(n < 2) { // this example assumes fib sequence starts with 1 and not 0
       return 1; // base case
     } else {
@@ -78,4 +81,5 @@ function memo(callback) {
   });
 
 // Test
+// console.log(fib(10)); // should be 89
 console.log(fib(10)); // should be 89
