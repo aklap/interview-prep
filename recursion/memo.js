@@ -4,12 +4,14 @@
 let cache = {};
 // Private helper method
 function cacher(func) {
-  return function() {
+  return function () {
     let key = JSON.stringify(arguments[0]);
 
-    if(cache[key]) {
+    if (cache[key]) {
+      console.log('Retrieving value from cache: ', key)
       return cache[key]
     } else {
+      console.log('Value not seen before: ', key)
       let val = func.apply(this, arguments);
       cache[key] = val;
       return val;
@@ -17,8 +19,7 @@ function cacher(func) {
   }
 }
 
-  // Public method
+// Public method
 export function memo(func) {
-  console.log('memoing')
   return cacher(func);
 }
